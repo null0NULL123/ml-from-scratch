@@ -5,13 +5,13 @@ n, k = map(int, input().split())
 data = np.array([list(map(int, input().split())) for _ in range(n)], dtype=float)
 
 
-def kmeans(data, n, k, e=1e-6):
+def kmeans(data, n, k, e=1e-6, it=100):
     centers = data[:k]
     labels = np.zeros(n, dtype=np.int32)
 
     tmp = np.zeros((k, 2), dtype=float)
     cnt = np.array([0] * k, dtype=np.int32)
-    for _ in range(100):
+    for _ in range(it):
         tmp.fill(0)
         cnt.fill(0)
 
