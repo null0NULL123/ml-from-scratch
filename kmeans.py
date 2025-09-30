@@ -1,9 +1,5 @@
 import numpy as np
 
-n, k = map(int, input().split())
-
-data = np.array([list(map(int, input().split())) for _ in range(n)], dtype=float)
-
 
 def kmeans(data, n, k, e=1e-6, it=100):
     centers = data[:k]
@@ -16,8 +12,8 @@ def kmeans(data, n, k, e=1e-6, it=100):
         cnt.fill(0)
 
         for i in range(n):
-
-            l = np.argmin(np.pow(data[i] - centers, 2).sum(axis=1))
+            distance: np.ndarray = np.pow(data[i] - centers, 2)
+            l = np.argmin(distance.sum(axis=1))
             labels[i] = int(l)
             cnt[l] += 1
             tmp[l] += data[i]
@@ -59,12 +55,15 @@ def silhouette(centers: np.ndarray, labels, cnt):
     return ret.tolist()
 
 
-centers, labels, cnt = kmeans(data, n, k)
-x, y = silhouette(centers, labels, cnt)
-x = list(str(x))
-y = list(str(y))
+if __name__ == "__main__":
+    n, k = map(int, input().split())
+    data = np.array([list(map(int, input().split())) for _ in range(n)], dtype=float)
+    centers, labels, cnt = kmeans(data, n, k)
+    x, y = silhouette(centers, labels, cnt)
+    x = list(str(x))
+    y = list(str(y))
 
-for i in [x, y]:
-    if int(i[3]) & 1:
-        i[3] += 1
-print(f'{"".join(x[:4])},{"".join(y[:4])}')
+    for i in [x, y]:
+        if int(i[3]) & 1:
+            i[3] += 1
+    print(f'{"".join(x[:4])},{"".join(y[:4])}')
