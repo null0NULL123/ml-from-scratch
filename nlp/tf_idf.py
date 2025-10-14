@@ -1,20 +1,45 @@
 import math
-from collections import defaultdict, Counter
+from collections import Counter
 
-def tf_idf(corpus:list[str]):
+
+def inverse_document_frequency(corpus: list[str]):
     idf = Counter()
-    tf = Counter()
     for doc in corpus:
         d = doc.split()
-        tf.update(d)
         idf.update(set(d))
-    total_words = sum(tf.values())
     total_docs = len(corpus)
     for word, count in idf.items():
         idf[word] = math.log(total_docs / (count + 1))
+    return idf
 
-    tf_idf = {word: tf[word] * idf[word] / total_words for word in tf}
-    return tf_idf
+
+def term_frequency(corpus: list[str]):
+    for doc in corpus:
+        d = doc.split()
+        cnt = Counter(d)
+        doc_len = len(d)
+        tf_doc = {word: count / doc_len for word, count in cnt.items()}
+        yield tf_doc
+
+
+def tf_idf(corpus: list[str]):
+    idf = inverse_document_frequency(corpus)
+    for tf_doc in term_frequency(corpus):
+        tfidf = {word: tf * idf[word] for word, tf in tf_doc.items()}
+        yield tfidf
+
 
 if __name__ == "__main__":
-    print(tf_idf(["this is a sample", "this is another example example example"]))
+    print(
+        list(
+            tf_idf(
+                [
+                    "What is the weather like today",
+                    "what is for dinner tonight",
+                    "this is question worth pondering",
+                    "it is a beautiful day today",
+                ]
+            )
+        )
+    )
+))
