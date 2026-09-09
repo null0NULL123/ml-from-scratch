@@ -1,6 +1,6 @@
 # ml-from-scratch
 
-题库见[牛客华为AI岗机考真题](https://www.nowcoder.com/exam/oj/ta?page=1&tpId=37&type=390)，仓库提供题解的 numpy 解法，以下是2026年华为笔试的经验，仅供参考，最后本人主管面没过。
+题库见[牛客华为AI岗机考真题](https://www.nowcoder.com/exam/oj/ta?page=1&tpId=37&type=390)，仓库提供题解的 numpy 解法，以下是2025年华为笔试的经验，仅供参考，最后本人主管面没过。
 
 ## 心得
 
